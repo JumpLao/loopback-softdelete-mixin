@@ -10,7 +10,8 @@
     "pretest": "eslint ./src/*.js && gulp babel",
     "test": "_mocha --compilers js:babel-core/register",
     "watch": "gulp",
-    "outdated": "npm outdated --depth=0"
+    "outdated": "npm outdated --depth=0",
+    "install": "npm run compile"
   },
   "keywords": [
     "loopback",
