@@ -98,6 +98,20 @@ export default (Model, { deletedAt = 'deletedAt', scrub = false , index = false,
 
     return _find.call(Model, query, ...rest);
   };
+  
+  const _findById = Model.findById;
+  Model.findById = function findByIdDeleted(id, query = {}, ...rest) {
+    if (!query.deleted) {
+      if (!query.where || Object.keys(query.where).length === 0) {
+        query.where = queryNonDeleted;
+      } else {
+        query.where = { and: [ query.where, queryNonDeleted ] };
+      }
+    }
+
+    return _findById.call(Model, id, query, ...rest);
+  };
+
 
   const _count = Model.count;
   Model.count = function countDeleted(where = {}, ...rest) {
